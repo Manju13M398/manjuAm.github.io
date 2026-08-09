@@ -4,21 +4,847 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Manju - My Personal Website</title>
+    <title>Manju | Portfolio</title>
+
+    <meta name="description" content="Manju's professional portfolio website">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        :root {
+            --bg: #080808;
+            --card: #111111;
+            --card2: #151515;
+            --text: #f5f5f5;
+            --muted: #999999;
+            --border: #252525;
+            --accent: #ffffff;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* NAVBAR */
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(8, 8, 8, 0.92);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-container {
+            max-width: 1150px;
+            margin: auto;
+            padding: 18px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: 700;
+            letter-spacing: -1px;
+        }
+
+        .logo span {
+            color: #777;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #aaa;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: white;
+        }
+
+        /* HERO */
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            max-width: 1150px;
+            margin: auto;
+            padding: 120px 25px 70px;
+        }
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+        .small-text {
+            color: #888;
+            font-size: 14px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 {
+            font-size: clamp(50px, 9vw, 95px);
+            line-height: 1;
+            letter-spacing: -5px;
+            margin-bottom: 25px;
+        }
+
+        .hero h1 span {
+            color: #777;
+        }
+
+        .hero h2 {
+            font-size: clamp(22px, 4vw, 34px);
+            font-weight: 400;
+            color: #bbb;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            max-width: 650px;
+            color: var(--muted);
+            font-size: 17px;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 35px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 13px 24px;
+            border: 1px solid #444;
+            border-radius: 5px;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        .btn-primary {
+            background: white;
+            color: black;
+            border-color: white;
+        }
+
+        .btn-primary:hover {
+            background: #ddd;
+        }
+
+        .btn-secondary:hover {
+            background: #171717;
+        }
+
+        /* GENERAL */
+
+        section {
+            max-width: 1150px;
+            margin: auto;
+            padding: 100px 25px;
+        }
+
+        .section-heading {
+            margin-bottom: 55px;
+        }
+
+        .section-number {
+            color: #666;
+            font-size: 13px;
+            letter-spacing: 3px;
+        }
+
+        .section-heading h2 {
+            font-size: 45px;
+            margin-top: 8px;
+            letter-spacing: -2px;
+        }
+
+        .section-heading p {
+            color: #777;
+            margin-top: 8px;
+        }
+
+        /* ABOUT */
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1.4fr 1fr;
+            gap: 70px;
+        }
+
+        .about-text p {
+            color: #aaa;
+            font-size: 17px;
+            margin-bottom: 20px;
+        }
+
+        .about-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            padding: 30px;
+            border-radius: 8px;
+        }
+
+        .about-card h3 {
+            margin-bottom: 20px;
+        }
+
+        .info {
+            display: flex;
+            justify-content: space-between;
+            padding: 14px 0;
+            border-bottom: 1px solid var(--border);
+            color: #777;
+            font-size: 14px;
+        }
+
+        .info:last-child {
+            border-bottom: none;
+        }
+
+        .info strong {
+            color: #ddd;
+            font-weight: 500;
+        }
+
+        /* SKILLS */
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .skill {
+            padding: 30px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+
+        .skill:hover {
+            border-color: #555;
+            transform: translateY(-4px);
+        }
+
+        .skill h3 {
+            margin-bottom: 10px;
+            font-size: 19px;
+        }
+
+        .skill p {
+            color: #777;
+            font-size: 14px;
+        }
+
+        .skill-icon {
+            font-size: 25px;
+            margin-bottom: 18px;
+        }
+
+        /* EDUCATION */
+
+        .timeline {
+            max-width: 850px;
+        }
+
+        .timeline-item {
+            padding: 30px;
+            margin-bottom: 15px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            border-left: 3px solid #555;
+        }
+
+        .timeline-item h3 {
+            font-size: 20px;
+        }
+
+        .timeline-item .year {
+            color: #666;
+            margin: 5px 0 12px;
+            font-size: 14px;
+        }
+
+        .timeline-item p {
+            color: #888;
+        }
+
+        /* PROJECTS */
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+
+        .project {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 30px;
+            transition: 0.3s;
+        }
+
+        .project:hover {
+            transform: translateY(-5px);
+            border-color: #555;
+        }
+
+        .project-number {
+            color: #555;
+            font-size: 13px;
+            margin-bottom: 25px;
+        }
+
+        .project h3 {
+            font-size: 21px;
+            margin-bottom: 12px;
+        }
+
+        .project p {
+            color: #777;
+            font-size: 14px;
+            margin-bottom: 25px;
+        }
+
+        .project a {
+            font-size: 14px;
+            color: #ddd;
+        }
+
+        .project a:hover {
+            color: white;
+        }
+
+        /* CONTACT */
+
+        .contact {
+            text-align: center;
+            max-width: 750px;
+        }
+
+        .contact .section-heading {
+            margin-bottom: 25px;
+        }
+
+        .contact p {
+            color: #888;
+            margin-bottom: 30px;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .contact-link {
+            border: 1px solid var(--border);
+            padding: 12px 20px;
+            border-radius: 5px;
+            color: #bbb;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        .contact-link:hover {
+            color: white;
+            border-color: #666;
+            background: #111;
+        }
+
+        /* FOOTER */
+
+        footer {
+            border-top: 1px solid var(--border);
+            text-align: center;
+            padding: 30px 20px;
+            color: #555;
+            font-size: 13px;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 800px) {
+
+            .nav-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .nav-links {
+                gap: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .hero {
+                padding-top: 160px;
+            }
+
+            .hero h1 {
+                letter-spacing: -3px;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 35px;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            section {
+                padding: 75px 20px;
+            }
+
+            .section-heading h2 {
+                font-size: 36px;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-    <h1>Hi, I'm Manju 👋</h1>
+    <!-- NAVIGATION -->
 
-    <p>Welcome to my personal website!</p>
+    <nav>
+        <div class="nav-container">
 
-    <h2>About Me</h2>
+            <a href="#home" class="logo">
+                Manju<span>.</span>
+            </a>
 
-    <p>
-        This is my personal website.
-        I will add my details, skills, education and projects here.
-    </p>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#education">Education</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+
+        </div>
+    </nav>
+
+
+    <!-- HERO -->
+
+    <header class="hero" id="home">
+
+        <div class="hero-content">
+
+            <div class="small-text">
+                Welcome to my portfolio
+            </div>
+
+            <h1>
+                I'm <span>Manju.</span>
+            </h1>
+
+            <h2>
+                Student &nbsp;•&nbsp; Developer &nbsp;•&nbsp; Learner
+            </h2>
+
+            <p>
+                I'm passionate about technology, web development and
+                creating meaningful digital experiences. I enjoy learning
+                new technologies and turning ideas into real projects.
+            </p>
+
+            <div class="buttons">
+
+                <a href="#projects" class="btn btn-primary">
+                    View My Work
+                </a>
+
+                <a href="#contact" class="btn btn-secondary">
+                    Get In Touch
+                </a>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- ABOUT -->
+
+    <section id="about">
+
+        <div class="section-heading">
+
+            <div class="section-number">01 / ABOUT</div>
+
+            <h2>About Me</h2>
+
+            <p>A little bit about who I am.</p>
+
+        </div>
+
+
+        <div class="about-grid">
+
+            <div class="about-text">
+
+                <p>
+                    Hello! I'm Manju. I'm a student and technology
+                    enthusiast who enjoys exploring the world of
+                    software and web development.
+                </p>
+
+                <p>
+                    I'm constantly learning new skills and working on
+                    projects that help me improve my programming,
+                    creativity and problem-solving abilities.
+                </p>
+
+                <p>
+                    My goal is to build useful, clean and professional
+                    digital experiences while continuously growing
+                    as a developer.
+                </p>
+
+            </div>
+
+
+            <div class="about-card">
+
+                <h3>Quick Info</h3>
+
+                <div class="info">
+                    <span>Name</span>
+                    <strong>Manju</strong>
+                </div>
+
+                <div class="info">
+                    <span>Role</span>
+                    <strong>Student / Developer</strong>
+                </div>
+
+                <div class="info">
+                    <span>Location</span>
+                    <strong>India</strong>
+                </div>
+
+                <div class="info">
+                    <span>Focus</span>
+                    <strong>Web Development</strong>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- SKILLS -->
+
+    <section id="skills">
+
+        <div class="section-heading">
+
+            <div class="section-number">02 / SKILLS</div>
+
+            <h2>What I Know</h2>
+
+            <p>Technologies and tools I'm learning.</p>
+
+        </div>
+
+
+        <div class="skills-grid">
+
+            <div class="skill">
+                <div class="skill-icon">01</div>
+                <h3>HTML</h3>
+                <p>
+                    Creating structured and accessible web pages.
+                </p>
+            </div>
+
+            <div class="skill">
+                <div class="skill-icon">02</div>
+                <h3>CSS</h3>
+                <p>
+                    Designing responsive and modern interfaces.
+                </p>
+            </div>
+
+            <div class="skill">
+                <div class="skill-icon">03</div>
+                <h3>JavaScript</h3>
+                <p>
+                    Building interactive web experiences.
+                </p>
+            </div>
+
+            <div class="skill">
+                <div class="skill-icon">04</div>
+                <h3>Python</h3>
+                <p>
+                    Programming, automation and problem solving.
+                </p>
+            </div>
+
+            <div class="skill">
+                <div class="skill-icon">05</div>
+                <h3>Git & GitHub</h3>
+                <p>
+                    Version control and project management.
+                </p>
+            </div>
+
+            <div class="skill">
+                <div class="skill-icon">06</div>
+                <h3>Web Development</h3>
+                <p>
+                    Developing responsive and user-friendly websites.
+                </p>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- EDUCATION -->
+
+    <section id="education">
+
+        <div class="section-heading">
+
+            <div class="section-number">03 / EDUCATION</div>
+
+            <h2>Education</h2>
+
+            <p>My academic journey.</p>
+
+        </div>
+
+
+        <div class="timeline">
+
+            <div class="timeline-item">
+
+                <h3>Your Degree / Course</h3>
+
+                <div class="year">
+                    202X — Present
+                </div>
+
+                <p>
+                    Add your college/university name and course details here.
+                </p>
+
+            </div>
+
+
+            <div class="timeline-item">
+
+                <h3>Higher Secondary Education</h3>
+
+                <div class="year">
+                    202X
+                </div>
+
+                <p>
+                    Add your school name and academic details here.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- PROJECTS -->
+
+    <section id="projects">
+
+        <div class="section-heading">
+
+            <div class="section-number">04 / PROJECTS</div>
+
+            <h2>Selected Work</h2>
+
+            <p>Some of the things I've built.</p>
+
+        </div>
+
+
+        <div class="projects-grid">
+
+            <div class="project">
+
+                <div class="project-number">
+                    PROJECT / 01
+                </div>
+
+                <h3>Personal Portfolio</h3>
+
+                <p>
+                    A professional personal portfolio website built
+                    using HTML and CSS and hosted with GitHub Pages.
+                </p>
+
+                <a href="#">
+                    View Project →
+                </a>
+
+            </div>
+
+
+            <div class="project">
+
+                <div class="project-number">
+                    PROJECT / 02
+                </div>
+
+                <h3>Project Two</h3>
+
+                <p>
+                    Add your project description here. Mention the
+                    technologies used and what you built.
+                </p>
+
+                <a href="#">
+                    View Project →
+                </a>
+
+            </div>
+
+
+            <div class="project">
+
+                <div class="project-number">
+                    PROJECT / 03
+                </div>
+
+                <h3>Project Three</h3>
+
+                <p>
+                    Add another project here and connect it to your
+                    GitHub repository.
+                </p>
+
+                <a href="#">
+                    View Project →
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- CONTACT -->
+
+    <section id="contact" class="contact">
+
+        <div class="section-heading">
+
+            <div class="section-number">05 / CONTACT</div>
+
+            <h2>Let's Connect</h2>
+
+            <p>
+                Have a project or opportunity? Let's talk.
+            </p>
+
+        </div>
+
+        <p>
+            You can reach me through email or connect with me
+            on my professional profiles.
+        </p>
+
+
+        <div class="contact-links">
+
+            <!-- CHANGE YOUR EMAIL -->
+
+            <a
+                href="mailto:YOUR_EMAIL@gmail.com"
+                class="contact-link">
+                Email
+            </a>
+
+
+            <!-- CHANGE YOUR GITHUB USERNAME -->
+
+            <a
+                href="https://github.com/YOUR_USERNAME"
+                target="_blank"
+                class="contact-link">
+                GitHub
+            </a>
+
+
+            <!-- CHANGE YOUR LINKEDIN -->
+
+            <a
+                href="https://www.linkedin.com/in/YOUR_USERNAME/"
+                target="_blank"
+                class="contact-link">
+                LinkedIn
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <p>
+            © 2026 Manju. All rights reserved.
+        </p>
+
+    </footer>
 
 </body>
 </html>
